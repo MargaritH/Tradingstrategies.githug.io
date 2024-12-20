@@ -3,133 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Accurate and reliable forecasting for various domains like weather, finance, and more.">
-    <meta name="author" content="MargaritH">
-    <title>Forecasting Site</title>
-    <!-- Link to external stylesheets (e.g., Bootstrap) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Add custom styles if needed -->
+    <title>Quantitative Finance Hub</title>
     <style>
-        /* Inline styling */
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
-        .hero-section {
-            background-color: #007bff;
-            color: white;
-            padding: 50px 0;
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
             text-align: center;
         }
-        .forecast-container {
-            margin-top: 30px;
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #444;
         }
-        .categories {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .categories h4 {
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .categories ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .categories ul li {
-            margin: 5px 0;
-        }
-        .categories ul li a {
+        nav a {
+            color: #fff;
+            padding: 1rem;
             text-decoration: none;
-            color: #007bff;
         }
-        .categories ul li a:hover {
-            text-decoration: underline;
+        nav a:hover {
+            background: #555;
+        }
+        .container {
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
 <body>
-
-    <!-- Categories Section -->
-    <div class="categories">
-        <h4>Categories</h4>
-        <ul>
-            <li><a href="#ml-forecasting">Machine Learning Models & Forecasting</a></li>
-            <li><a href="#quantitative-insights">Quantitative Insights</a></li>
-            <li><a href="#trading-strategies">Trading Strategies</a></li>
-        </ul>
-    </div>
-
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="container">
-            <h1 class="display-4">Welcome to Our Forecasting Site</h1>
-            <p class="lead">Accurate predictions for your needs, whether it's weather, financial trends, or more!</p>
-            <a href="#forecast" class="btn btn-light btn-lg">Get Started</a>
-        </div>
+    <header>
+        <h1>Quantitative Finance Hub</h1>
+        <p>Mastering Quantitative Finance with a Smile</p>
     </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Quant Resources</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="container">
+        <h2>Build Winning Trading Strategies with Python, RSI, and Moving Average</h2>
+        <p>Algorithmic trading is a game-changer in quantitative finance. It leverages financial modeling and quantitative analysis to create robust strategies that can be backtested and optimized. In this tutorial, we’ll build a simple algorithmic trading strategy using Python, focusing on the Relative Strength Index (RSI) and Moving Average Crossover. Plus, we’ll optimize the RSI period to see how it impacts performance.</p>
+        
+        <h3>Setting Up Your Python Environment</h3>
+        <p>To get started, install the necessary Python libraries. You can do this using pip:</p>
+        <pre><code>pip install pandas numpy matplotlib yfinance ta-lib</code></pre>
+        
+        <h3>Building the Trading Strategy</h3>
+        <h4>Step 1: Import Libraries</h4>
+        <pre><code>import pandas as pd
+import numpy as np
+import yfinance as yf
+import matplotlib.pyplot as plt
+import talib</code></pre>
+        
+        <h4>Step 2: Download Historical Data</h4>
+        <pre><code>data = yf.download('SPY', start='2020-01-01', end='2023-01-01')
+data['Adj Close'].plot(title='SPY Adjusted Close Price', figsize=(12, 6))
+plt.show()</code></pre>
+        
+        <h4>Step 3: Calculate RSI</h4>
+        <pre><code>data['RSI'] = talib.RSI(data['Adj Close'], timeperiod=14)</code></pre>
+        
+        <h4>Step 4: Calculate Moving Averages</h4>
+        <pre><code>data['SMA50'] = data['Adj Close'].rolling(window=50).mean()
+data['SMA200'] = data['Adj Close'].rolling(window=200).mean()</code></pre>
+        
+        <h4>Step 5: Define the Trading Strategy</h4>
+        <pre><code>data['Buy_Signal'] = (data['RSI'] < 30) & (data['SMA50'] > data['SMA200'])
+data['Sell_Signal'] = (data['RSI'] > 70) & (data['SMA50'] < data['SMA200'])</code></pre>
+        
+        <h4>Step 6: Plot the Strategy Signals</h4>
+        <pre><code>plt.figure(figsize=(12, 6))
+plt.plot(data['Adj Close'], label='SPY')
+plt.plot(data['SMA50'], label='50-Day SMA')
+plt.plot(data['SMA200'], label='200-Day SMA')
 
-    <!-- About Section -->
-    <section class="container my-5">
-        <h2 class="text-center">What We Do</h2>
-        <p>Our site offers forecasting models and tools to help you stay ahead in areas like weather, finance, and business analytics. We use machine learning, statistical methods, and data analysis to provide precise predictions and insights.</p>
-    </section>
+# Plot Buy and Sell signals
+buy_signals = data[data['Buy_Signal']]
+sell_signals = data[data['Sell_Signal']]
 
-    <!-- Forecasting Form or Tool -->
-    <section id="forecast" class="forecast-container container">
-        <h2 class="text-center">Get Your Forecast</h2>
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <!-- Form for user input -->
-                <form id="forecast-form">
-                    <div class="mb-3">
-                        <label for="forecastType" class="form-label">Select Forecast Type</label>
-                        <select id="forecastType" class="form-select">
-                            <option value="weather">Weather Forecast</option>
-                            <option value="financial">Financial Forecast</option>
-                            <option value="sales">Sales Forecast</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputDate" class="form-label">Select Date</label>
-                        <input type="date" class="form-control" id="inputDate" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Get Forecast</button>
-                </form>
-            </div>
-        </div>
-        <div id="forecast-result" class="mt-5 text-center">
-            <!-- Result will be displayed here -->
-        </div>
-    </section>
+plt.scatter(buy_signals.index, buy_signals['Adj Close'], marker='^', color='g', label='Buy Signal', alpha=1)
+plt.scatter(sell_signals.index, sell_signals['Adj Close'], marker='v', color='r', label='Sell Signal', alpha=1)
 
-    <!-- Footer Section -->
-    <footer class="bg-dark text-white text-center py-4">
-        <p>&copy; 2024 Your Name or Company | All Rights Reserved.</p>
-        <p>Follow us on <a href="#" class="text-light">Twitter</a>, <a href="#" class="text-light">Facebook</a>, and <a href="#" class="text-light">LinkedIn</a>.</p>
-    </footer>
+plt.title('SPY Trading Strategy Signals')
+plt.legend()
+plt.show()</code></pre>
+        
+        <h3>Backtesting the Strategy</h3>
+        <h4>Step 1: Initialize Portfolio</h4>
+        <pre><code>initial_cash = 100000
+data['Position'] = 0
+data.loc[data['Buy_Signal'], 'Position'] = 1
+data.loc[data['Sell_Signal'], 'Position'] = -1
+data['Position'] = data['Position'].replace(to_replace=0, method='ffill')
+data['Daily_Return'] = data['Adj Close'].pct_change()
+data['Strategy_Return'] = data['Daily_Return'] * data['Position'].shift()</code></pre>
+        
+        <h4>Step 2: Calculate Cumulative Returns</h4>
+        <pre><code>data['Cumulative_Strategy_Return'] = (1 + data['Strategy_Return']).cumprod() * initial_cash
+data['Cumulative_Market_Return'] = (1 + data['Daily_Return']).cumprod() * initial_cash</code></pre>
+        
+        <h4>Step 3: Plot the Results</h4>
+        <pre><code>plt.figure(figsize=(12, 6))
+plt.plot(data['Cumulative_Strategy_Return'], label='Strategy Return')
+plt.plot(data['Cumulative_Market_Return'], label='Market Return')
+plt.title('Cumulative Returns')
+plt.legend()
+plt.show()</code></pre>
+        
+        <h3>Optimizing the Strategy</h3>
+        <h4>Step 1: Optimize RSI Period</h4>
+        <pre><code># Example code to find the best RSI period
+best_period = None
+best_performance = -np.inf
 
-    <!-- Bootstrap JS (Optional for interactivity) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <!-- Add your own JavaScript (if necessary) -->
-    <script>
-        document.getElementById('forecast-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let forecastType = document.getElementById('forecastType').value;
-            let date = document.getElementById('inputDate').value;
-            let resultText = `You have selected a ${forecastType} forecast for the date: ${date}.`;
-
-            document.getElementById('forecast-result').innerHTML = `<h3>Forecast Result</h3><p>${resultText}</p>`;
-        });
-    </script>
-
-</body>
-</html>
+for period in range(5
+::contentReference[oaicite:0]{index=0}
+ 
